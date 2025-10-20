@@ -1,53 +1,24 @@
 class Solution {
 public:
-    bool isAna(string s1,string s2){
-        if(s1.length() != s2.length()){
-            return false;
-        }
-        sort(s1.begin(),s1.end());
-        sort(s2.begin(),s2.end());
-        return s1==s2;
-    }
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
 
+        unordered_map<string,vector<string>> anagrams;
 
-            vector<bool> isused(strs.size(),false);
+        for(const string&s:strs){
+            string key=s;
+            sort(key.begin(),key.end());
+            anagrams[key].push_back(s);
+        }
 
-            vector<vector<string>> result;
+        vector<vector<string>> results;
 
-            for(int i=0;i<strs.size();i++){
+        for(auto const&[key,val]:anagrams)
+{
+    results.push_back(val);
+}
 
-                if(!isused[i]){
-                    vector<string> currentgroup;
-                    currentgroup.push_back(strs[i]);
-                    isused[i] = true;
-
-
-
-                     for(int j=i+1;j<strs.size();j++){
-                    if(!isused[j] && isAna(strs[i],strs[j])){
-                        currentgroup.push_back(strs[j]);
-                        isused[j]=true;
-                    }
-
-
-                }
-
-            result.push_back(currentgroup);
-
-
-                }
-
-           
-
-
-
-
-            }
-
-
-
-            return result;
-
+return results;
+        
     }
+
 };
